@@ -95,6 +95,10 @@ output "aws_ami_id" {
     value = data.aws_ami.latest-amazon-linux-image.id
 }
 
+output "aws_public_ip" {
+    value = aws_instance.myapp-server.public_ip
+}
+
 variable instance_type {}
 variable public_key_location {}
 
@@ -110,6 +114,8 @@ resource "aws_instance" "myapp-server" {
     subnet_id = aws_subnet.myapp-subnet-1.id
     vpc_security_group_ids = [aws_security_group.myapp-sg.id]
     availability_zone = var.avail_zone
+
+    associate_public_ip_address = true
 
     tags = {
          Name: "${var.env_prefix}-server"
