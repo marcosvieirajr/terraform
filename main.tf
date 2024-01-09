@@ -93,13 +93,7 @@ data "aws_ami" "latest-amazon-linux-image" {
     }
 }
 
-output "aws_ami_id" {
-    value = data.aws_ami.latest-amazon-linux-image.id
-}
 
-output "aws_public_ip" {
-    value = aws_instance.myapp-server.public_ip
-}
 
 resource "aws_key_pair" "ssh-key" {
     key_name = "server-key"
