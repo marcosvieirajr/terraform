@@ -2,14 +2,6 @@ provider "aws" {
   region     = "us-east-1"
 }
 
-variable vpc_cidr_block {}
-variable env_prefix {}
-variable subnet_cidr_block {}
-variable avail_zone {}
-variable my_ip {}
-variable instance_type {}
-variable public_key_location {}
-
 resource "aws_vpc" "myapp-vpc" {
     cidr_block = var.vpc_cidr_block
     tags = {
