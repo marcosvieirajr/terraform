@@ -18,13 +18,12 @@ module "myapp-subnet" {
     default_route_table_id = aws_vpc.myapp-vpc.default_route_table_id
 }
 
-resource "aws_route_table_association" "a-rtb-subnet" {
-    subnet_id = aws_subnet.myapp-subnet-1.id
-    route_table_id = aws_route_table.myapp-route-table.id
-}
+# resource "aws_route_table_association" "a-rtb-subnet" {
+#     subnet_id = module.myapp-subnet.subnet.id
+#     route_table_id = aws_route_table.myapp-route-table.id
+# }
 
-resource "aws_security_group" "myapp-sg" {
-    name = "myapp-sg"
+resource "aws_default_security_group" "default-sg" {
     vpc_id = aws_vpc.myapp-vpc.id
 
     ingress {
@@ -77,8 +76,8 @@ resource "aws_instance" "myapp-server" {
     ami = data.aws_ami.latest-amazon-linux-image.id
     instance_type = var.instance_type
 
-    subnet_id = aws_subnet.myapp-subnet-1.id
-    vpc_security_group_ids = [aws_security_group.myapp-sg.id]
+    subnet_id = module.myapp-subnet.subnet.id
+    vpc_security_group_ids = [aws_default_security_group.default-sg.id]
     availability_zone = var.avail_zone
 
     associate_public_ip_address = true
