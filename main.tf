@@ -17,8 +17,3 @@ module "myapp-subnet" {
     vpc_id = aws_vpc.myapp-vpc.id
     default_route_table_id = aws_vpc.myapp-vpc.default_route_table_id
 }
-
-# resource "aws_route_table_association" "a-rtb-subnet" {
-#     subnet_id = module.myapp-subnet.subnet.id
-#     route_table_id = aws_route_table.myapp-route-table.id
-# }
